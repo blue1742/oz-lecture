@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <meta charset="UTF-8">
+    <title>The WWW project</title>
+    <body>
+        <h1>The World Wide Web</h1>
+
+        <p>World Wide Web: CERN에서 제공되는 정보입니다:</p>
+        
+        <ul>
+            <li><a href="데일리 과제 1-2.html">The World Wide Web project</a></li>
+        </ul>
+    </body>
+</html>
