@@ -1,0 +1,97 @@
+/* 기본 데스크톱 스타일 */
+body {
+  max-width: 80vw;
+  margin: 0 auto;
+  font-size: 1rem;
+}
+
+header {
+  padding: 2rem;
+  border-bottom: 0.2rem solid chocolate;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2vw 0;
+}
+
+.post {
+  padding: 1.5rem;
+  border: 0.2rem solid #ccc;
+}
+
+aside {
+  width: 25vw;
+  padding: 1.5rem;
+  margin-right: 2vw;
+  font-size: 1em;
+}
+
+footer {
+  padding: 1.5rem;
+  border-top: 0.2rem solid #ddd;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+section {
+  margin: 2vw 0;
+}
+
+/* 태블릿 (최대 너비 1023px) */
+@media (max-width: 1023px) {
+  body {
+    max-width: 90vw;
+  }
+
+  #posts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  nav ul {
+    justify-content: space-around;
+  }
+
+  aside {
+    width: 30vw;
+    margin-right: 1vw;
+  }
+}
+
+/* 모바일 (최대 너비 767px) */
+@media (max-width: 767px) {
+  body {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #posts {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  aside {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
