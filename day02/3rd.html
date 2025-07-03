@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--韓国語html-->
+<html lang="ko">
+    <head>
+        <!--メーターはUTF-8-->
+        <meta charset="UTF-8">
+        <!--タイトル-->
+        <title>Form 입력 관련 태그</title>
+    </head>
+    <body>
+        <form action="/submit" method="GET">
+            <!--入力要素はこのフォームタグに含まれる。-->
+            <!--ID入力要素-->
+            <input type="text" name="username" placeholder="사용자 이름">
+            <!--パスワード入力要素-->
+            <input type="password" name="password" placeholder="비밀번호">
+            <br>
+            <div id="hobby_checkbox">
+                <!--チェックボックス-->
+                <!--チェックボックスは複数選択ができる。-->
+                <h3>취미를 선택해주세요.</h3>
+                <!--読書チェックボックス-->
+                <input type="checkbox" name="hobby" value="reading"> 독서
+                <!--ゲームチェックボックス-->
+                <input type="checkbox" name="hobby" value="gaming"> 게임
+            </div>
+            <div id="gender_radio">
+                <!--性別選択ラジオボタン-->
+                <!--ラジオボタンは複数選択ができない。-->
+                <h3>성별을 선택해주세요.</h3>
+                <!--男性-->
+                <input type="radio" name="gender" value="male"> 남성
+                <!--女性-->
+                <input type="radio" name="gender" value="female"> 여성
+            </div>
+            <div id="ciry_combo_box">
+                <!--都市選択コンボボックス-->
+                <h3>도시를 선택해주세요.</h3>
+                <select name="city">
+                    <!--ソウル-->
+                    <option value="seoul">서울</option>ㄴ
+                    <!--大邱-->
+                    <option value="daegu">대구</option>
+                    <!--済州島-->
+                    <option value="jeju">제주</option>
+                </select>
+            </div>
+            <div id="etc">
+                <!--備考-->
+                <h3>기타정보</h3>
+                <!--メール入力要素-->
+                <input type="email" name="email" placeholder="이메일을 입력하세요.">
+                <br>
+                <!--生年月日入力要素-->
+                <!--使用者直接入力とカレンダーで選択ができるように設定-->
+                <input type="date" name="birthdate" placeholder="생일을 선택하세요" />
+                <br>
+                <!--年齢入力要素-->
+                <!--1歳から100歳まで入力するように設定-->
+                <input type="number" name="age" min="1" max="100" />
+                <br>
+                <!--レンジ-->
+                <!--0から100まで調整するように設定-->
+                <input type="range" name="volume" min="0" max="100" />
+                <br>
+                <!--携帯番号-->
+                <!--0から9まで3桁、4桁、4桁の電話番号の形式で入力するように設定-->
+                <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" />
+                <br>
+                <!--URL入力要素-->
+                <!--https://~~の形のみ入力するように設定-->
+                <input
+                type="url"
+                name="url"
+                placeholder="https://example.com"
+                pattern="https://.*"
+                size="30"
+                required
+                />
+                <div id="color_box">
+                    <!--色選択ボックス-->
+                    <p>Choose your monster's colors:</p>
+                    <div>
+                        <input type="color" id="head" name="head" value="#e66465" />
+                        <label for="head">Head</label>
+                    </div>
+                    <div>
+                        <input type="color" id="body" name="body" value="#f6b73c" />
+                        <label for="body">Body</label>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            </div>
+            <br>
+            <!--提出ボタン-->
+            <!--input type="submit" value="제출"もできる。-->
+            <!--inputタグよりは直観的である。-->
+            <button type="submit">제출</button>
+            <!--リセット（初期化）ボタン-->
+            <!--input type="reset" value="초기화"もできる。-->
+            <!--inputタグよりは直観的である。-->
+            <button type="reset">초기화</button>
+        </form>
+    </body>
+</html>

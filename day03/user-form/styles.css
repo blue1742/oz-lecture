@@ -1,0 +1,104 @@
+/* 기본 선택자 설정 */
+/* margin: 0; padding: 0; box-sizing: border-box; 적용 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1::after {
+  content: " ✨";
+  margin-left: 10px;
+  color: #ff9800;
+  font-size: 1.2em;
+}
+
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* id 선택자 */
+ /* text-align: center;  */
+#registration-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: #ddd;
+  margin-top: 10px;
+}
+
+/* 클래스 선택자: 폼 그룹 여백 설정 */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* 후손 선택자 */
+form p {
+  padding: 5px;
+}
+
+/* 자식 선택자 */
+form > p {
+  border-bottom: 1px solid #eee;
+}
+
+/* 속성 선택자: 입력 필드 스타일 */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="range"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 버튼 스타일 */
+input[type="submit"],
+input[type="reset"],
+button[type="submit"],
+button[type="reset"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* 라벨 정렬 */
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+/* <label>::after: 필수 입력 필드(예: name, email, password)의 라벨 뒤에
+빨간색 별표 표시(예: content: "*"; color: red;) */
+label[for="name"]::after,
+label[for="email"]::after,
+label[for="password"]::after {
+  content: "*";
+  color: red;
+}
+
+
+/* 셀렉트 박스 스타일 */
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
