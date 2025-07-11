@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Float와 Clear 비교</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .section {
+        margin-bottom: 40px;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        color: white;
+        text-align: center;
+        line-height: 100px;
+        margin: 10px;
+      }
+      /* Float Left */
+      .float-left-box {
+        float: left;
+      }
+      /* Float Right */
+      .float-right-box {
+        float: right;
+      }
+      /* Clear */
+      .clear {
+        clear: both;
+      }
+      /* Clearfix for parent collapse */
+      .clearfix::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .container {
+        border: 2px solid gray;
+        padding: 10px;
+      }
+      h2 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+      p {
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSS Float와 Clear 비교</h1>
+
+    <!-- Float Left -->
+    <div class="section">
+      <h2>Float: Left</h2>
+      <div class="container clearfix">
+        <div class="box float-left-box">Float Left</div>
+        <p>
+          이 텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Float Right -->
+    <div class="section">
+      <h2>Float: Right</h2>
+      <div class="container clearfix">
+        <div class="box float-right-box">Float Right</div>
+        <p>
+          이 텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Clear -->
+    <div class="section">
+      <h2>Clear 적용</h2>
+      <div class="container clearfix">
+        <div class="box float-left-box">Float Left</div>
+        <p class="clear">
+          이 텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다. 이
+          텍스트는 Float된 박스를 감싸며 배치됩니다. Float된 요소는 문서
+          흐름에서 부분적으로 제거되어 텍스트나 다른 요소가 주위를 감쌉니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Without Clearfix (Parent Collapse Example) -->
+    <div class="section">
+      <h2>Clearfix 없는 경우 (높이 붕괴)</h2>
+      <div class="container">
+        <div class="box float-left-box">Float Left</div>
+        <p>이 컨테이너는 Float으로 인해 높이가 붕괴합니다.</p>
+      </div>
+      <p>컨테이너 외부의 텍스트입니다.</p>
+    </div>
+  </body>
+</html>

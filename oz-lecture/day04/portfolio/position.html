@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Position 속성 비교</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      height: 1500px; /* 스크롤 테스트용 긴 페이지 */
+    }
+    .section {
+      margin-bottom: 40px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      color: white;
+      text-align: center;
+      line-height: 100px;
+      margin: 10px;
+    }
+    /* Static */
+    .static-box {
+      position: static;
+      background-color: lightblue;
+    }
+    /* Relative */
+    .relative-box {
+      position: relative;
+      top: 20px;
+      left: 30px;
+      background-color: lightgreen;
+    }
+    /* Absolute */
+    .parent {
+      position: relative; /* Absolute의 기준점 */
+      width: 200px;
+      height: 200px;
+      background-color: lightgray;
+    }
+    .absolute-box {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: lightcoral;
+    }
+    /* Fixed */
+    .fixed-box {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: lightsalmon;
+      z-index: 1000;
+    }
+    /* Sticky */
+    .scrollable {
+      height: 300px;
+      overflow: auto;
+      background-color: #f0f0f0;
+    }
+    .sticky-box {
+      position: sticky;
+      top: 0;
+      background-color: violet;
+    }
+    h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    p {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Position 속성 비교</h1>
+
+  <!-- Static -->
+  <div class="section">
+    <h2>Position: Static</h2>
+    <div class="static-box box">Static Box</div>
+    <p>Static은 기본값으로, 문서 흐름에 따라 배치되며 top, left 등의 속성이 무시됩니다.</p>
+  </div>
+
+  <!-- Relative -->
+  <div class="section">
+    <h2>Position: Relative</h2>
+    <div class="relative-box box">Relative Box</div>
+    <p>Relative는 원래 위치를 기준으로 이동하며, 원래 공간을 유지합니다.</p>
+  </div>
+
+  <!-- Absolute -->
+  <div class="section">
+    <h2>Position: Absolute</h2>
+    <div class="parent">
+      <div class="absolute-box box">Absolute Box</div>
+    </div>
+    <p>Absolute는 가장 가까운 position이 static 아닌 부모를 기준으로 배치되며, 문서 흐름에서 제거됩니다.</p>
+  </div>
+
+  <!-- Fixed -->
+  <div class="section">
+    <h2>Position: Fixed</h2>
+    <div class="fixed-box box">Fixed Box</div>
+    <p>Fixed는 뷰포트를 기준으로 고정되며, 스크롤해도 위치를 유지합니다.</p>
+  </div>
+
+  <!-- Sticky -->
+  <div class="section">
+    <h2>Position: Sticky</h2>
+    <div class="scrollable">
+      <div class="sticky-box box">Sticky Box</div>
+      <p>스크롤 가능한 콘텐츠입니다. Sticky 박스는 부모 영역 내에서 상단에 고정됩니다.</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+      <p>더 많은 콘텐츠...</p>
+    </div>
+    <p>Sticky는 부모 내에서 스크롤 시 특정 위치에 고정됩니다.</p>
+  </div>
+  
+</body>
+</html>

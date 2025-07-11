@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>Form 입력 관련 태그</title>
+    </head>
+    <body>
+        <form action="/submit" method="GET">
+            <input type="text" name="username" placeholder="사용자 이름">
+            <input type="password" name="password" placeholder="비밀번호">
+            <br>
+            <div>
+                <h3>취미를 선택해주세요</h3>
+                <input type="checkbox" name="hobby" value="reading"> 독서
+                <input type="checkbox" name="hobby" value="gaming"> 게임
+            </div>
+            <div>
+                <h3>성별을 선택해주세요</h3>
+                <input type="radio" name="gender" value="male"> 남성
+                <input type="radio" name="gender" value="female"> 여성
+            </div>
+            <div>
+                <h3>도시를 선택해주세요</h3>
+                <select name="city" multiple>
+                    <option value="seoul">서울</option>
+                    <option value="busan">부산</option>
+                    <option value="jeju">제주</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <hr>
+            <div>
+                <h3>기타정보</h3>
+            <button type="submit">제출</button>
+            <button type="reset">초기화</button>
+        </form>
+    </body>
+</html>

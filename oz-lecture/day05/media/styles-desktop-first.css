@@ -1,0 +1,36 @@
+html {
+  font-size: 16px;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+h1 {
+  text-align: center;
+  padding: 2rem; /* 32px */
+  background-color: lightblue;
+}
+main {
+  padding: 1rem; /* 16px */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; /* 16px */
+}
+.box {
+  padding: 1rem; /* 16px */
+  background-color: lightcoral;
+  text-align: center;
+  box-sizing: border-box;
+}
+/* 태블릿 */
+@media (max-width: 1023px) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* 모바일 */
+@media (max-width: 767px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,90 @@
+<!-- about.html에서 수정된 부분만 하이라이트했습니다 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>My Portfolio</title> <!-- title을 index.html과 일관되게 변경 -->
+  <!-- bootstrap, icons, CSS 파일은 index.html과 동일하게 유지 -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- ... 기타 CSS, 아이콘, vendor 파일들 ... -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body class="about-page">
+
+  <!-- 헤더 / 네비게이션 메뉴 -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">My Portfolio</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" style="padding-top:80px;">
+    <!-- About 섹션 (index.html과 동일한 스타일로) -->
+    <section id="about" class="about section py-5">
+      <div class="container">
+        <div class="row gy-4 align-items-center">
+          <div class="col-lg-4 text-center">
+            <img src="assets/img/profile-img.jpg" class="img-fluid rounded-circle" alt="Profile">
+          </div>
+          <div class="col-lg-8 content">
+            <h2 class="text-center mb-3">UI/UX Designer &amp; Web Developer</h2>
+            <p class="fst-italic text-center mb-4">안녕하세요! 웹 디자인과 개발을 사랑하는 신입 프론트엔드 개발자입니다. 사용자 경험 중심의 웹을 만드는 데에 열정을 쏟고 있습니다.</p>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <ul class="list-unstyled">
+                  <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>3 February 1995</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>www.portfolio.com</span></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul class="list-unstyled">
+                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Incheon, Korea</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>audtlr10892@gmail.com</span></li>
+                </ul>
+              </div>
+            </div>
+            <p>프론트엔드 개발과 디자인 간 균형을 추구하며, HTML, CSS, JavaScript 및 React를 기반으로 프로젝트를 완성해왔습니다. 협업을 통해 더 나은 결과를 만들어가고자 합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (index.html 스타일) -->
+  <footer id="footer" class="footer bg-dark text-white text-center py-3">
+    <div class="container">
+      <h3 class="sitename">My Portfolio</h3>
+      <p>© 2025 My Portfolio. All rights reserved.</p>
+      <div class="social-links d-flex justify-content-center mb-2">
+        <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div>Designed by You • Built with Bootstrap 5.3</div>
+    </div>
+  </footer>
+
+  <!-- Scroll top, JS 파일도 동일하게 유지 -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <!-- ... 기타 JS 파일 ... -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
