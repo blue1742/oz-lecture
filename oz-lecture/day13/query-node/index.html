@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Day13 query-node</title>
+  </head>
+  <body>
+    <article class="box-1">
+      <p class="text">text-1</p>
+      <p class="text">text-2</p>
+    </article>
+    <article class="box-2">
+      <p class="text">text-1</p>
+      <p class="text">text-2</p>
+    </article>
+    <script>
+      // box-2의 class가 text를 포함한 첫번째 p 태그를 찾고싶음
+      const box2els = document.getElementsByClassName("box-2"); // []
+      console.log(box2els);
+      const box2el = box2els[0];
+      console.log(box2el);
+      const textEls = box2el.children;
+      console.log(textEls);
+      const firstTextEls = textEls[0];
+      console.log(firstTextEls);
+      const firntTextElsContents = firstTextEls.textContent;
+      console.log("getEls: ", firntTextElsContents);
+
+      const shortExp =
+        document.getElementsByClassName("box-2")[0].children[0].textContent;
+      console.log(shortExp);
+      console.log("getEls-short: ", firntTextElsContents);
+    </script>
+  </body>
+</html>

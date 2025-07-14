@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Day13 control-node</title>
+    <style>
+      .active {
+        color: #999999;
+        background-color: #ff0000;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p id="text">text</p>
+      <p class="hl">하이라이트</p>
+    </div>
+    <script>
+      // 엘레먼트의 스타일 직접 조정
+      // const pEl = document.querySelector("p");
+      // pEl.style.color = "#999999";
+      // pEl.style.backgroundColor = "#ff0000";
+      // pEl.style.fontSize = "20px";
+
+      let isHighLight = true;
+
+      // 클래스 속성 조정하기
+      const hl = document.querySelector(".hl");
+      if (isHighLight) {
+        hl.classList.add("active");
+      } else {
+        hl.classList.remove("active");
+      }
+
+      // 요소 추가하기
+      const aEl = document.createElement("a"); // 요소 노드 생성하기. 아직 dom에 붙이지 않았음.
+      document.body.appendChild(aEl); // body의 자식요소로 aEl을 붙이기
+
+      const txtEl = document.createTextNode("OZ코딩");
+      document.querySelector("a").appendChild(txtEl); // textNode를 a태그 자식요소로 붙이기
+
+      const hrefAttr = document.createAttribute("href");
+      hrefAttr.value = "https://www.ozcodingschool.com";
+      document.querySelector("a").setAttributeNode(hrefAttr); // href 속성노드 붙이기
+    </script>
+  </body>
+</html>
