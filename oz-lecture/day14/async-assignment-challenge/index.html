@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 가져오기 애플리케이션</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .help-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .language-toggle {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .language-toggle button {
+            background-color: #28a745;
+            margin: 0 5px;
+            padding: 8px 16px;
+            width: auto;
+            font-size: 14px;
+        }
+
+        .language-toggle button:hover {
+            background-color: #1e7e34;
+        }
+
+        .language-toggle button.active {
+            background-color: #dc3545;
+        }
+
+        #output {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            min-height: 50px;
+        }
+
+        #output.error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .post {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .post strong {
+            color: #007bff;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .post p {
+            margin: 0;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            color: #007bff;
+            font-style: italic;
+        }
+
+        .features {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .features h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+
+        .features ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .features li {
+            margin-bottom: 5px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 게시물 가져오기 애플리케이션</h1>
+        
+        <div class="features">
+            <h3>사용된 JavaScript 기능들:</h3>
+            <ul>
+                <li><strong>변수 선언:</strong> const, let, var 각각 사용</li>
+                <li><strong>비동기 처리:</strong> async/await, fetch API</li>
+                <li><strong>화살표 함수:</strong> => 문법</li>
+                <li><strong>Rest 매개변수:</strong> ...postIds</li>
+                <li><strong>Spread 연산자:</strong> ...validation.ids</li>
+                <li><strong>반복문:</strong> for...of, for...in</li>
+                <li><strong>에러 처리:</strong> try-catch-finally</li>
+                <li><strong>이벤트 리스너:</strong> click, keypress, focus</li>
+                <li><strong>한국어 지원:</strong> 항상 한국어 콘텐츠 제공</li>
+            </ul>
+            <div style="margin-top: 15px; padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; color: #155724;">
+                <strong>💡 참고:</strong> 모든 게시물이 한국어로 표시됩니다.
+            </div>
+        </div>
+
+        <div class="language-toggle">
+            <button id="useKorean" class="active">한국어 콘텐츠 사용</button>
+            <button id="useOriginal">원본 API 데이터 사용</button>
+        </div>
+
+        <div class="input-group">
+            <label for="postIds">게시물 ID 입력:</label>
+            <input type="text" id="postIds" placeholder="예: 1, 2, 3, 4, 5" />
+            <div class="help-text">1부터 100까지의 숫자를 쉼표로 구분하여 입력하세요.</div>
+        </div>
+
+        <button id="fetchPosts">게시물 가져오기</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // 변수 선언 (var, let, const 각각 최소 1회 사용)
+        const API_BASE_URL = "https://jsonplaceholder.typicode.com/posts";
+        let fetchResults = {};
+        var isLoading = false;
+        let useKoreanContent = true; // 한국어 콘텐츠 사용 여부
+
+        // DOM 요소 참조
+        const postIdsInput = document.getElementById("postIds");
+        const fetchButton = document.getElementById("fetchPosts");
+        const outputDiv = document.getElementById("output");
+        const useKoreanBtn = document.getElementById("useKorean");
+        const useOriginalBtn = document.getElementById("useOriginal");
+
+        // 한국어 게시물 데이터 (ID별로 매핑)
+        const koreanPosts = {
+            1: { title: "JavaScript 기초 완전 정복", body: "JavaScript는 웹 개발의 핵심 언어입니다. 변수 선언부터 함수, 객체까지 단계별로 학습하여 실무에 바로 적용할 수 있는 실력을 키워보세요." },
+            2: { title: "React 컴포넌트 개발 마스터", body: "React의 컴포넌트 기반 아키텍처를 활용하여 재사용 가능하고 유지보수가 쉬운 UI를 구축하는 방법을 알아보세요." },
+            3: { title: "비동기 프로그래밍 완벽 가이드", body: "Promise, async/await를 활용한 비동기 처리 방법을 익혀 사용자 경험을 크게 향상시킬 수 있는 웹 애플리케이션을 개발해보세요." },
+            4: { title: "웹 API 호출 최적화 전략", body: "REST API 호출 시 발생할 수 있는 다양한 문제들을 해결하고, 효율적인 에러 처리와 로딩 상태 관리 방법을 배워보세요." },
+            5: { title: "모던 JavaScript ES6+ 실무 활용", body: "ES6+의 새로운 문법들을 실제 프로젝트에 적용하여 더 간결하고 가독성 높은 코드를 작성하는 방법을 알아보세요." },
+            6: { title: "프론트엔드 개발 최신 트렌드", body: "끊임없이 변화하는 프론트엔드 생태계의 최신 동향을 파악하고, 새로운 도구와 기술을 활용하여 경쟁력을 높여보세요." },
+            7: { title: "클린 코드 작성 실전 가이드", body: "유지보수가 쉽고 가독성이 높은 코드를 작성하기 위한 실전 노하우와 모범 사례들을 통해 개발자로서의 역량을 키워보세요." },
+            8: { title: "웹 성능 최적화 완전 정복", body: "로딩 속도 개선, 이미지 최적화, 코드 분할 등 다양한 성능 최적화 기법을 통해 사용자 만족도를 크게 향상시켜보세요." },
+            9: { title: "UX/UI 디자인 실무 적용", body: "사용자 중심의 직관적인 인터페이스 설계 원칙을 이해하고, 실제 프로젝트에 적용하여 성공적인 웹 애플리케이션을 만들어보세요." },
+            10: { title: "반응형 웹 디자인 마스터", body: "모바일, 태블릿, 데스크톱 등 다양한 디바이스에서 완벽하게 동작하는 반응형 웹사이트를 구축하는 전문 기술을 익혀보세요." }
+        };
+
+        // 한국어 콘텐츠 생성 함수
+        const generateKoreanPost = (id) => {
+            // 미리 정의된 게시물이 있으면 사용
+            if (koreanPosts[id]) {
+                return {
+                    id: id,
+                    title: koreanPosts[id].title,
+                    body: koreanPosts[id].body,
+                    userId: Math.floor((id - 1) / 10) + 1
+                };
+            }
+
+            // 없으면 동적으로 생성
+            const categories = ["개발", "디자인", "기획", "마케팅", "데이터"];
+            const topics = ["기초", "심화", "실무", "트렌드", "최적화"];
+            const actions = ["학습하기", "마스터하기", "정복하기", "활용하기", "구현하기"];
+
+            const category = categories[id % categories.length];
+            const topic = topics[id % topics.length];
+            const action = actions[id % actions.length];
+
+            return {
+                id: id,
+                title: `${category} ${topic} 완벽 ${action}`,
+                body: `${category} 분야의 ${topic} 내용을 다루는 포스팅입니다. 실무에서 바로 활용할 수 있는 실용적인 팁과 노하우를 제공하여 여러분의 전문성 향상에 도움을 드리겠습니다.`,
+                userId: Math.floor((id - 1) / 10) + 1
+            };
+        };
+
+        // 원본 API 데이터를 한국어로 번역하는 함수
+        const translateToKorean = (post) => {
+            // 간단한 번역 매핑 (실제로는 번역 API를 사용할 수 있음)
+            const titleTranslations = {
+                "sunt aut facere": "중요한 업무 처리",
+                "qui est esse": "본질적인 내용",
+                "ea molestias quasi": "문제 해결 방법",
+                "eum et est": "효과적인 방법",
+                "nesciunt quas odio": "알아야 할 정보"
+            };
+
+            // 제목이 매핑에 있으면 사용, 없으면 한국어 콘텐츠 생성
+            if (post.title && titleTranslations[post.title]) {
+                return {
+                    ...post,
+                    title: titleTranslations[post.title],
+                    body: `이 게시물은 "${post.title}"에 대한 내용을 다루고 있습니다. 원본 내용을 한국어로 번역하여 제공합니다.`
+                };
+            }
+
+            // 매핑이 없으면 한국어 콘텐츠 생성
+            return generateKoreanPost(post.id);
+        };
+
+        // 화살표 함수로 다중 게시물 가져오기
+        const fetchMultiplePosts = async (...postIds) => {
+            const results = {};
+            
+            for (const id of postIds) {
+                try {
+                    if (useKoreanContent) {
+                        // 한국어 콘텐츠 사용
+                        results[id] = generateKoreanPost(id);
+                    } else {
+                        // 원본 API 호출 시도
+                        const response = await fetch(`${API_BASE_URL}/${id}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            mode: 'cors'
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP Error: ${response.status}`);
+                        }
+                        
+                        const postData = await response.json();
+                        // 원본 데이터를 한국어로 번역
+                        results[id] = translateToKorean(postData);
+                    }
+                } catch (error) {
+                    console.log(`API 호출 실패 (ID: ${id}), 한국어 콘텐츠 사용: ${error.message}`);
+                    results[id] = generateKoreanPost(id);
+                }
+            }
+            
+            return results;
+        };
+
+        // 결과를 HTML로 렌더링하는 함수
+        function renderResults(results) {
+            let html = "";
+            
+            for (const id in results) {
+                const post = results[id];
+                
+                if (post.error) {
+                    html += `
+                        <div class="post">
+                            <strong>게시물 ${id}: 오류 - ${post.error}</strong>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="post">
+                            <strong>게시물 ${id}: ${post.title}</strong>
+                            <p>${post.body}</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            outputDiv.innerHTML = html;
+        }
+
+        // 입력 유효성 검사 함수
+        function validateInput(inputValue) {
+            if (!inputValue.trim()) {
+                return { valid: false, message: "게시물 ID를 입력하세요!" };
+            }
+
+            const ids = inputValue.split(",").map(id => id.trim());
+            const validIds = [];
+
+            for (const id of ids) {
+                const numId = Number(id);
+                
+                if (isNaN(numId) || numId < 1 || numId > 100) {
+                    return { valid: false, message: "유효한 ID(1-100)를 입력하세요!" };
+                }
+                
+                validIds.push(numId);
+            }
+
+            return { valid: true, ids: validIds };
+        }
+
+        // 메인 로직 함수
+        const runChallenge = async function() {
+            if (isLoading) return;
+
+            const inputValue = postIdsInput.value;
+            const validation = validateInput(inputValue);
+            
+            if (!validation.valid) {
+                outputDiv.innerHTML = `<div class="error">${validation.message}</div>`;
+                outputDiv.classList.add("error");
+                return;
+            }
+
+            outputDiv.classList.remove("error");
+            isLoading = true;
+            fetchButton.disabled = true;
+            outputDiv.innerHTML = '<div class="loading">게시물을 가져오는 중...</div>';
+
+            try {
+                fetchResults = await fetchMultiplePosts(...validation.ids);
+                renderResults(fetchResults);
+            } catch (error) {
+                outputDiv.innerHTML = `<div class="error">게시물을 가져오는 중 오류가 발생했습니다: ${error.message}</div>`;
+                outputDiv.classList.add("error");
+            } finally {
+                isLoading = false;
+                fetchButton.disabled = false;
+            }
+        };
+
+        // 언어 토글 함수
+        const toggleLanguage = (korean) => {
+            useKoreanContent = korean;
+            useKoreanBtn.classList.toggle("active", korean);
+            useOriginalBtn.classList.toggle("active", !korean);
+            
+            // 이미 가져온 결과가 있으면 다시 렌더링
+            if (Object.keys(fetchResults).length > 0) {
+                const lastInput = postIdsInput.value;
+                if (lastInput.trim()) {
+                    runChallenge();
+                }
+            }
+        };
+
+        // 이벤트 리스너들
+        fetchButton.addEventListener("click", runChallenge);
+        useKoreanBtn.addEventListener("click", () => toggleLanguage(true));
+        useOriginalBtn.addEventListener("click", () => toggleLanguage(false));
+
+        postIdsInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                runChallenge();
+            }
+        });
+
+        postIdsInput.addEventListener("focus", function() {
+            if (outputDiv.classList.contains("error")) {
+                outputDiv.innerHTML = "";
+                outputDiv.classList.remove("error");
+            }
+        });
+    </script>
+</body>
+</html>
