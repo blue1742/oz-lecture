@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+h1 {
+  text-align: center;
+}
+.book-container {
+  margin-top: 20px;
+}
+.book-input {
+  width: 60%;
+  padding: 8px;
+  font-size: 16px;
+}
+.book-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.book-list {
+  list-style: none;
+  padding: 0;
+}
+.book-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+#results {
+  margin-top: 20px;
+}
+#results ul {
+  list-style: none;
+  padding: 0;
+}
+#results li {
+  margin: 5px 0;
+}
