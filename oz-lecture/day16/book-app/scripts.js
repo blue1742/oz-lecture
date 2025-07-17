@@ -1,4 +1,4 @@
-// 📚 BookVault - 차세대 도서 관리 시스템
+// 📚 BookVault - 도서 관리 app
 // 글로벌 변수
 let books = [];
 let bookIdCounter = 0;
