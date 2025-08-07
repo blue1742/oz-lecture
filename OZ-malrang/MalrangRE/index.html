@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#667eea">
+  <meta name="description" content="Malrang은 마음이 어우러지는 연결입니다, 따뜻하고 부드러운 마음을 함께 해요.">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Malrang - 당신의 따뜻한 손길이 아이들의 꿈을 지킵니다">
+  <meta property="og:description" content="혁신적인 아이디어와 열정적인 서포터들을 연결하는 새싹펀딩 플랫폼">
+  <meta property="og:image" content="%PUBLIC_URL%/img/image03.png">
+  <meta property="og:url" content="https://malrang.com">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Malrang - 새싹펀딩 플랫폼">
+  <meta name="twitter:description" content="당신의 프로젝트를 세상에 펼쳐주세요">
+  <meta name="twitter:image" content="%PUBLIC_URL%/img/image03.png">
+  
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png">
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <title>Malrang - 당신의 따뜻한 손길이 아이들의 꿈을 지킵니다</title>
+  
+  <style>
+    /* 로딩 화면 스타일 */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    #loading-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: white;
+      margin-top: 20px;
+      font-size: 18px;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    
+    /* noscript 메시지 */
+    .noscript-message {
+      padding: 20px;
+      background: #ff6b6b;
+      color: white;
+      text-align: center;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <noscript>
+    <div class="noscript-message">
+      이 웹사이트를 사용하려면 JavaScript를 활성화해야 합니다.
+    </div>
+  </noscript>
+  
+  <!-- 로딩 화면 -->
+  <div id="loading-screen">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Malrang 로딩중...</div>
+  </div>
+  
+  <!-- React 앱이 마운트될 루트 요소 -->
+  <div id="root"></div>
+  
+  <script>
+    // React 앱이 로드되면 로딩 화면 숨기기
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+          loadingScreen.classList.add('fade-out');
+          setTimeout(function() {
+            loadingScreen.style.display = 'none';
+          }, 500);
+        }
+      }, 500);
+    });
+  </script>
+</body>
+</html>
