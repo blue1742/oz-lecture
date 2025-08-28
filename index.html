@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAM/SAM/SOM 도형 시각화</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .shapes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 300px);
+            gap: 30px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+        
+        .shape-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+            width: 300px;
+            height: 350px;
+        }
+        
+        .shape-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .company-title {
+            font-size: 1.1em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* 링 스타일 - TAM/SAM 영역이 더 잘 보이도록 */
+        .concentric-circles {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 20px auto;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        
+        /* TAM 텍스트 위치 - 상단 */
+        .tam-text {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        
+        /* SAM 텍스트 위치 - 우측 */
+        .sam-text {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.3);
+            padding: 5px 8px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        
+        /* SOM 텍스트 위치 - 중앙 */
+        .som-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7em;
+            font-weight: 900;
+            text-align: center;
+            line-height: 1.2;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.3);
+            padding: 5px 8px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        
+        .circle:hover {
+            transform: scale(1.05);
+            border-color: rgba(255,255,255,0.6);
+        }
+        
+        /* TAM 원 - 가장 외부, 투명도 적용 */
+        .tam-circle {
+            width: 240px;
+            height: 240px;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            z-index: 1;
+        }
+        
+        /* SAM 원 - 중간, 더 두껍게 */
+        .sam-circle {
+            width: 160px;
+            height: 160px;
+            top: 40px;
+            left: 40px;
+            opacity: 0.8;
+            z-index: 2;
+            border-width: 4px;
+        }
+        
+        /* SOM 원 - 내부, 투명도 적용 */
+        .som-circle {
+            width: 80px;
+            height: 80px;
+            top: 80px;
+            left: 80px;
+            opacity: 0.9;
+            z-index: 3;
+            font-size: 0.8em;
+            border-width: 5px;
+        }
+        
+        /* Airbnb 색상 */
+        .airbnb .tam-circle {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .airbnb .sam-circle {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+        }
+        
+        .airbnb .som-circle {
+            background: linear-gradient(45deg, #845EC2, #B39BC8);
+        }
+        
+        /* Uber 색상 */
+        .uber .tam-circle {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .uber .sam-circle {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+        }
+        
+        .uber .som-circle {
+            background: linear-gradient(45deg, #845EC2, #B39BC8);
+        }
+        
+        /* GoFundMe 색상 */
+        .gofundme .tam-circle {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .gofundme .sam-circle {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+        }
+        
+        .gofundme .som-circle {
+            background: linear-gradient(45deg, #845EC2, #B39BC8);
+        }
+        
+        /* DonorsChoose 색상 */
+        .donorschoose .tam-circle {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .donorschoose .sam-circle {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+        }
+        
+        .donorschoose .som-circle {
+            background: linear-gradient(45deg, #845EC2, #B39BC8);
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        .legend-circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        
+        .legend-tam { background: linear-gradient(45deg, #FF6B6B, #FF8E53); }
+        .legend-sam { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .legend-som { background: linear-gradient(45deg, #845EC2, #B39BC8); }
+        
+        /* 피라미드 섹션 */
+        .pyramid-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        .pyramid-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+        
+        .pyramid {
+            position: relative;
+            width: 300px;
+            height: 250px;
+        }
+        
+        .pyramid-level {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 0.9em;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8);
+            clip-path: polygon(20% 0%, 80% 0%, 90% 100%, 10% 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .pyramid-level:hover {
+            transform: translateX(-50%) scale(1.05);
+        }
+        
+        .pyramid-tam {
+            width: 280px;
+            height: 90px;
+            top: 0;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+        
+        .pyramid-sam {
+            width: 200px;
+            height: 80px;
+            top: 80px;
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+        }
+        
+        .pyramid-som {
+            width: 120px;
+            height: 70px;
+            top: 150px;
+            background: linear-gradient(45deg, #845EC2, #B39BC8);
+        }
+        
+        .values-display {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            right: 0;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        /* 육각형 도형 */
+        .hexagon-section {
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        .hexagon-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .hexagon-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+        }
+        
+        .hexagon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 0.9em;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .hexagon:hover {
+            transform: scale(1.1);
+        }
+        
+        .hex-tam { background: linear-gradient(45deg, #FF6B6B, #FF8E53); }
+        .hex-sam { background: linear-gradient(45deg, #4ECDC4, #44A08D); }
+        .hex-som { background: linear-gradient(45deg, #845EC2, #B39BC8); }
+        .hex-market { background: linear-gradient(45deg, #ffa726, #ff9800); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 TAM/SAM/SOM 도형 시각화</h1>
+            <p>동심원으로 보는 시장 침투 전략</p>
+        </div>
+        
+        <!-- 동심원 섹션 -->
+        <div class="shapes-grid">
+            <div class="shape-container">
+                <div class="company-title">🏠 Airbnb</div>
+                <div class="concentric-circles airbnb">
+                    <div class="circle tam-circle">
+                        <div class="tam-text">TAM<br>$784B</div>
+                    </div>
+                    <div class="circle sam-circle">
+                        <div class="sam-text">SAM<br>$235B</div>
+                    </div>
+                    <div class="circle som-circle">
+                        <div class="som-text">SOM<br>$53B</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shape-container">
+                <div class="company-title">🚗 Uber</div>
+                <div class="concentric-circles uber">
+                    <div class="circle tam-circle">
+                        <div class="tam-text">TAM<br>$1T</div>
+                    </div>
+                    <div class="circle sam-circle">
+                        <div class="sam-text">SAM<br>$350B</div>
+                    </div>
+                    <div class="circle som-circle">
+                        <div class="som-text">SOM<br>$131B</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shape-container">
+                <div class="company-title">💰 GoFundMe</div>
+                <div class="concentric-circles gofundme">
+                    <div class="circle tam-circle">
+                        <div class="tam-text">TAM<br>$450B</div>
+                    </div>
+                    <div class="circle sam-circle">
+                        <div class="sam-text">SAM<br>$79B</div>
+                    </div>
+                    <div class="circle som-circle">
+                        <div class="som-text">SOM<br>$10B</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shape-container">
+                <div class="company-title">📚 DonorsChoose</div>
+                <div class="concentric-circles donorschoose">
+                    <div class="circle tam-circle">
+                        <div class="tam-text">TAM<br>$20B</div>
+                    </div>
+                    <div class="circle sam-circle">
+                        <div class="sam-text">SAM<br>$1.5B</div>
+                    </div>
+                    <div class="circle som-circle">
+                        <div class="som-text">SOM<br>$0.4B</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-circle legend-tam"></div>
+                <span>TAM (Total Addressable Market)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle legend-sam"></div>
+                <span>SAM (Serviceable Addressable Market)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle legend-som"></div>
+                <span>SOM (Serviceable Obtainable Market)</span>
+            </div>
+        </div>
+        
+        <!-- 피라미드 섹션 -->
+        <div class="pyramid-section">
+            <h2>🔺 시장 침투 피라미드</h2>
+            <div class="pyramid-container">
+                <div class="shape-container" style="width: 400px; height: 400px;">
+                    <div class="company-title">전체 시장 규모 비교</div>
+                    <div class="pyramid">
+                        <div class="pyramid-level pyramid-tam">전체 잠재시장 (TAM)</div>
+                        <div class="pyramid-level pyramid-sam">서비스 가능시장 (SAM)</div>
+                        <div class="pyramid-level pyramid-som">실제 획득시장 (SOM)</div>
+                        <div class="values-display">
+                            <div>TAM: $2.25조 (전체 합계)</div>
+                            <div>SAM: $665억 (평균)</div>
+                            <div>SOM: $49억 (평균)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 육각형 섹션 -->
+        <div class="hexagon-section">
+            <h2>⬡ 시장 특성 육각형</h2>
+            <div class="hexagon-grid">
+                <div style="text-align: center;">
+                    <div class="company-title">공유경제 전체</div>
+                    <div class="hexagon-container">
+                        <div class="hexagon hex-tam">
+                            성장률<br>32%
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="company-title">북미 시장</div>
+                    <div class="hexagon-container">
+                        <div class="hexagon hex-sam">
+                            점유율<br>40.4%
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="company-title">아시아-태평양</div>
+                    <div class="hexagon-container">
+                        <div class="hexagon hex-som">
+                            성장률<br>16.5%
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="company-title">글로벌 규모</div>
+                    <div class="hexagon-container">
+                        <div class="hexagon hex-market">
+                            2031년<br>$1.8조
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
